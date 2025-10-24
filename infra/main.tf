@@ -92,38 +92,6 @@ resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
   policy_arn = aws_iam_policy.lambda_policy.arn
 }
 
-//Regra para acesso da lambda ao DynamoDB
-resource "aws_iam_policy" "lambda_policy" {
-  name        = "lambda-controleArmazem-policy"
-  description = "Policy for Lambda to access DynamoDB"
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement : [
-      {
-        Action = [
-          "dynamodb:PutItem",
-          "dynamodb:GetItem",
-          "dynamodb:UpdateItem",
-          "dynamodb:DeleteItem",
-          "dynamodb:Scan",
-          "dynamodb:Query"
-        ],
-        Effect   = "Allow",
-        Resource = "*"
-      },
-      {
-        Action = [
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ],
-        Effect   = "Allow",
-        Resource = "*"
-      }
-    ]
-  })
-}
-
 resource "aws_dynamodb_table" "controle_armazem_table_Produtos" {
   name         = "Produtos"
   billing_mode = "PAY_PER_REQUEST"
