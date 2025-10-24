@@ -61,7 +61,7 @@ jobs:
       - name: Verificando se bucket está criado
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
-          BUCKET_NAME="controle_armazem_code_bucket"
+          BUCKET_NAME="controle-armazem-code-bucket"
           REGION="us-east-1"
 
           if ! aws s3api head-bucket --bucket "$BUCKET_NAME" 2>/dev/null; then
@@ -74,7 +74,7 @@ jobs:
       - name: Upload to S3
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
-          BUCKET_NAME="controle_armazem_code_bucket"
+          BUCKET_NAME="controle-armazem-code-bucket"
           aws s3api head-bucket --bucket "$BUCKET_NAME" || aws s3api create-bucket --bucket "$BUCKET_NAME"
           aws s3 cp lambda_api_function.zip s3://$BUCKET_NAME/
 
@@ -99,7 +99,7 @@ jobs:
         
     - name: Verificando se bucket está criado
       run: |
-            BUCKET_NAME="controle_armazem_code_bucket"
+            BUCKET_NAME="controle-armazem-code-bucket"
             REGION="us-east-1"
 
             if ! aws s3api head-bucket --bucket "$BUCKET_NAME" 2>/dev/null; then

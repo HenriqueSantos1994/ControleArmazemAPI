@@ -58,7 +58,7 @@ resource "aws_lambda_function" "api_function" {
   timeout       = 30
   #handler       = "ControleArmazem::ControleArmazem.LambdaEntryPoint::FunctionHandlerAsync"
   # Código armazenado no S3
-  s3_bucket = "controle_armazem_code_bucket"
+  s3_bucket = "controle-armazem-code-bucket"
   s3_key    = "controle_armazem_code.zip"
 }
 
