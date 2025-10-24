@@ -7,7 +7,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "tfstate-controleArmazem"
+    bucket = "tfstate-controlearmazem"
     key    = "api.tfstate"
     region = "us-east-1"
   }
