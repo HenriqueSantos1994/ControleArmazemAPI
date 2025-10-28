@@ -56,7 +56,7 @@ resource "aws_lambda_function" "api_function" {
   runtime       = "dotnet8"
   memory_size   = 512
   timeout       = 30
-  #handler       = "ControleArmazem::ControleArmazem.LambdaEntryPoint::FunctionHandlerAsync"
+  handler       = "ControleArmazem::ControleArmazem.LambdaEntryPoint::FunctionHandlerAsync"
   # Código armazenado no S3
   s3_bucket = "controle-armazem-code-bucket"
   s3_key    = "controle_armazem_code.zip"
