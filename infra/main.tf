@@ -66,7 +66,7 @@ resource "aws_lambda_function" "api_function" {
 resource "aws_lambda_permission" "allow_apigw" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.controle_armazem_lambda.function_name
+  function_name = aws_lambda_function.api_function.function_name
   principal     = "apigateway.amazonaws.com"
   # source_arn = "arn:aws:execute-api:..."  # opcionalmente restrinja ao seu API
 }
