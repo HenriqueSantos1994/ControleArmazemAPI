@@ -8,6 +8,8 @@
   "profile": "",
   "region": "",
   "configuration": "Release",
+  "function-runtime": "dotnet8",
+  "function-handler": "ControleArmazem::ControleArmazem.LambdaEntryPoint::FunctionHandlerAsync",
   "s3-prefix": "ControleArmazem/",
   "template": "serverless.template",
   "template-parameters": ""

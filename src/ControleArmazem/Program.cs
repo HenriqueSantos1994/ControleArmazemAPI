@@ -1,19 +1,22 @@
+using System;
+using ControleArmazem;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-
-// Add AWS Lambda support. When application is run in Lambda Kestrel is swapped out as the web server with Amazon.Lambda.AspNetCoreServer. This
-// package will act as the webserver translating request and responses between the Lambda event source and ASP.NET Core.
-builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi);
+// Delegar configuração de serviços para Startup
+var startup = new Startup();
+startup.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
+// Delegar configuração do pipeline para Startup
+startup.Configure(app, app.Environment);
 
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
+// Não iniciar Kestrel quando executando dentro do Lambda (ou do Lambda Test Tool).
+var runningInLambda = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("AWS_LAMBDA_FUNCTION_NAME"))
+    || string.Equals(Environment.GetEnvironmentVariable("LAMBDA_TEST_TOOL"), "true", StringComparison.OrdinalIgnoreCase);
 
-app.MapGet("/", () => "Welcome to running ASP.NET Core Minimal API on AWS Lambda");
-
-app.Run();
+if (!runningInLambda)
+{
+    app.Run();
+}
